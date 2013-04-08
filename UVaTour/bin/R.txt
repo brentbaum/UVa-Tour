@@ -15,19 +15,18 @@ int attr zOrderOnTop 0x7f01000d
 int dimen activity_horizontal_margin 0x7f060000
 int dimen activity_vertical_margin 0x7f060001
 int drawable ic_launcher 0x7f020000
-int id action_settings 0x7f040008
+int id greeting 0x7f040006
 int id hybrid 0x7f040004
-int id map 0x7f040007
-int id mapButton 0x7f040006
+int id map 0x7f040005
+int id mapButton 0x7f040007
 int id none 0x7f040000
 int id normal 0x7f040001
 int id satellite 0x7f040002
 int id terrain 0x7f040003
-int id textView1 0x7f040005
-int layout activity_tour 0x7f030000
-int layout google_maps 0x7f030001
+int id touractivity 0x7f040008
+int layout mapscreen 0x7f030000
+int layout tourscreen 0x7f030001
 int menu tour 0x7f080000
-int string action_settings 0x7f050012
 int string app_name 0x7f050011
 int string auth_client_availability_notification_title 0x7f05000e
 int string auth_client_play_services_err_notification_msg 0x7f05000f
@@ -48,6 +47,7 @@ int string common_google_play_services_update_title 0x7f050007
 int string common_signin_button_text_long 0x7f05000d
 int string hello_world 0x7f050013
 int string mapButtonString 0x7f050014
+int string menu_settings 0x7f050012
 int style AppBaseTheme 0x7f070000
 int style AppTheme 0x7f070001
 int[] styleable MapAttrs { 0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003, 0x7f010004, 0x7f010005, 0x7f010006, 0x7f010007, 0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b, 0x7f01000c, 0x7f01000d }
