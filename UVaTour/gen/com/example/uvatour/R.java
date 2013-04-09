@@ -149,15 +149,15 @@ containing a value of this type.
         public static final int none=0x7f040000;
         public static final int normal=0x7f040001;
         public static final int satellite=0x7f040002;
+        public static final int settings=0x7f040008;
         public static final int terrain=0x7f040003;
-        public static final int touractivity=0x7f040008;
     }
     public static final class layout {
         public static final int mapscreen=0x7f030000;
         public static final int tourscreen=0x7f030001;
     }
     public static final class menu {
-        public static final int tour=0x7f080000;
+        public static final int tourscreen=0x7f080000;
     }
     public static final class string {
         public static final int app_name=0x7f050011;
