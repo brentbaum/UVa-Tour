@@ -1,12 +1,7 @@
 package com.example.uvatour.net;
 
-import java.io.File;
-import java.io.IOException;
-
-import android.util.Log;
-import org.codehaus.jackson.*;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.node.ObjectNode;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Utils {
 
@@ -38,7 +33,6 @@ public class Utils {
 		try {
 			rootNode = m.readTree(response);
 			JsonNode nameNode = rootNode.path("status");
-			String lastName = nameNode.path("last").getTextValue();
 			System.out.println(nameNode.asText());
 		} catch (Exception e) {
 			e.printStackTrace();

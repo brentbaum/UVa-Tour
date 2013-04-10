@@ -30,7 +30,7 @@ public class MapScreen extends Screen {
 	private LocationManager locationManager;
 	private LatLng latLng;
 	private GoogleMap mMap;
-	private boolean firstTime;
+	private boolean firstTime = true;
 	public List<LatLng> routePoints;
 	private DirectionProvider provider;
 	private ArrayList<TourStop> stops;

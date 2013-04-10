@@ -15,9 +15,4 @@ public class GetCallback {
 	public void onDataReceived(String response) {
 		
 	}
-
-	public void onTaskComplete(String response) {
-		// TODO Auto-generated method stub
-		
-	}
 }

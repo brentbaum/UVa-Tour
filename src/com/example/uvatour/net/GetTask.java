@@ -56,6 +56,7 @@ public class GetTask extends AsyncTask<String, String, String> {
 			Log.e("error:",
 					Utils.convertStreamToString(urlConnection.getErrorStream()));
 		}
+		System.out.println(response);
 		return response;
 	}
 
