@@ -24,7 +24,7 @@ public class MapAdapter {
 	public void plotRoute(List<LatLng> points) {
         PolylineOptions lineOptions = new PolylineOptions();
         lineOptions.addAll(points);
-        lineOptions.width(2);
+        lineOptions.width(4);
         lineOptions.color(Color.BLUE);
         mMap.addPolyline(lineOptions);
 	}

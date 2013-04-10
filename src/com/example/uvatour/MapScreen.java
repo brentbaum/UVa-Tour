@@ -106,7 +106,7 @@ public class MapScreen extends Screen {
 		@Override
 		public void onMyLocationChange(Location location) {
 			CameraUpdate update = CameraUpdateFactory.newLatLngZoom(new LatLng(
-					location.getLatitude(), location.getLongitude()), 14.0f);
+					location.getLatitude(), location.getLongitude()), 18.0f);
 			mMap.animateCamera(update);
 			latLng = new LatLng(location.getLatitude(), location.getLongitude());
 			if (firstTime) {
