@@ -20,7 +20,7 @@ public class DirectionProvider {
 	public DirectionProvider(GoogleMap map, Activity a) {
 		this.mMap = map;
 		server = ServerAPI.getInstance(a);
-		current = (TourScreen) a;
+		current = (MapScreen) a;
 	}
 
 	public boolean query(LatLng latLng, TourStop tourStop) {
@@ -32,6 +32,7 @@ public class DirectionProvider {
 						List<LatLng> directions = new ArrayList<LatLng>();
 						for (String s : encodedPoints)
 							directions.addAll(decode(s));
+						
 						MapAdapter mAdapter = new MapAdapter(((MapScreen)current).getMap());
 						mAdapter.plotRoute(directions);
 					}

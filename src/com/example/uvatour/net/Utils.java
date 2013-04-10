@@ -1,6 +1,12 @@
 package com.example.uvatour.net;
 
+import java.io.File;
+import java.io.IOException;
+
 import android.util.Log;
+import org.codehaus.jackson.*;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.node.ObjectNode;
 
 public class Utils {
 
@@ -26,6 +32,17 @@ public class Utils {
 	}
 
 	public static String[] parseResponseForPolyPoints(String response) {
-		return null;
+		ObjectMapper m = new ObjectMapper();
+		// can either use mapper.readTree(source), or mapper.readValue(source, JsonNode.class);
+		JsonNode rootNode;
+		try {
+			rootNode = m.readTree(response);
+			JsonNode nameNode = rootNode.path("status");
+			String lastName = nameNode.path("last").getTextValue();
+			System.out.println(nameNode.asText());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new String[5];
 	}
 }

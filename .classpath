@@ -5,5 +5,8 @@
 	<classpathentry kind="lib" path="libs/sofia-with-dependencies.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="lib" path="/Users/brentbaumgartner/Downloads/jackson-core-2.1.4.jar"/>
+	<classpathentry kind="lib" path="libs/jackson-mapper-asl-1.8.3.jar"/>
+	<classpathentry kind="lib" path="libs/jackson-mrbean-1.8.3.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
