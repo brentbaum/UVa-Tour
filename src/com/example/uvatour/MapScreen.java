@@ -92,18 +92,22 @@ public class MapScreen extends Screen {
 	// loads stop's coordinates, history, and picture url from an external txt
 	// file.
 	private ArrayList<TourStop> loadStops() {
-		return null;
+		ArrayList<TourStop> list = new ArrayList<TourStop>();
+		list.add(new TourStop(38.0545958, -78.5347012, "www.google.com", "history"));
+		return list;
 	}
 
+	//defines an OnMyLocationChangeListener which will animate the map to the user's current
+	//position whenever the user moves.
 	private class LocationListener implements OnMyLocationChangeListener {
 		@Override
 		public void onMyLocationChange(Location location) {
 			CameraUpdate update = CameraUpdateFactory.newLatLng(new LatLng(
 					location.getLatitude(), location.getLongitude()));
 			mMap.animateCamera(update);
-			System.out.println(location.getLatitude()+", "+location.getLongitude());
 			latLng = new LatLng(location.getLatitude(), location.getLongitude());
 			if(firstTime) {
+				System.out.println("first");
 				provider.query(latLng, stops.get(0));
 				firstTime = false;
 			}
