@@ -24,18 +24,15 @@ public class DirectionProvider {
 	}
 
 	public boolean query(LatLng latLng, TourStop tourStop) {
-		System.out.println("Creating Request");
 		server.getDirectionRequest(latLng.latitude, latLng.longitude,
 				tourStop.getLatitude(), tourStop.getLongitude(),
 				new GetCallback(current) {
 					public void onDataReceived(String response) {
-						System.out.println("Response Received");
 						String[] encodedPoints = Utils
 								.parseResponseForPolyPoints(response);
 						List<LatLng> directions = new ArrayList<LatLng>();
 						for (String s : encodedPoints) {
 							directions.addAll(decodePoly(s));
-							System.out.println(directions);
 						}
 
 						MapAdapter mAdapter = new MapAdapter(
