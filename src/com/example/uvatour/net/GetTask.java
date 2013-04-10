@@ -25,7 +25,7 @@ public class GetTask extends AsyncTask<String, String, String> {
 	 * 
 	 * @param restUrl
 	 *            The URL for the REST API.
-	 * @param current 
+	 * @param current
 	 * @param getCallback
 	 *            The callback to be invoked when the HTTP request completes.
 	 * 

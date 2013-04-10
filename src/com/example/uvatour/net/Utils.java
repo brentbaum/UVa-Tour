@@ -2,6 +2,7 @@ package com.example.uvatour.net;
 
 import java.io.File;
 
+import com.example.uvatour.net.DirectionResponseObject.Route.Leg.Step;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -13,9 +14,11 @@ public class Utils {
 
 	public static final String server_url = "https://maps.googleapis.com/maps/api/directions/json?";
 
-	public static String constructRestUrlForDirectionRequest(double ilat, double ilon, double dlat, double dlon) {
-		return server_url + "origin=" + ilat + "," +  ilon + "&destination=" + dlat + "," + dlon +"&sensor=true"+
-				"&region=gb&mode=walking";
+	public static String constructRestUrlForDirectionRequest(double ilat,
+			double ilon, double dlat, double dlon) {
+		return server_url + "origin=" + ilat + "," + ilon + "&destination="
+				+ dlat + "," + dlon + "&sensor=true"
+				+ "&region=gb&mode=walking";
 	}
 
 	public static class DirectionObject {
@@ -34,8 +37,13 @@ public class Utils {
 
 	public static String[] parseResponseForPolyPoints(String response) {
 		Gson gson = new Gson();
-		DirectionResponseObject dires = gson.fromJson(response, DirectionResponseObject.class);
-		System.out.println(dires.toString());
-		return new String[5];
+		DirectionResponseObject dires = gson.fromJson(response,
+				DirectionResponseObject.class);
+		Step[] steps = dires.routes[0].legs[0].steps;
+		String[] lines = new String[steps.length];
+		for (int x = 0; x < steps.length; x++) {
+			lines[x] = steps[x].polyline.points;
+		}
+		return lines;
 	}
 }

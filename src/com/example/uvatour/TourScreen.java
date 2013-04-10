@@ -1,4 +1,3 @@
-
 package com.example.uvatour;
 
 import sofia.app.OptionsMenu;
@@ -13,7 +12,7 @@ public class TourScreen extends Screen {
 
 	// fields
 	// these will be automatically filled by sofia
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -26,11 +25,11 @@ public class TourScreen extends Screen {
 		getMenuInflater().inflate(R.menu.tourscreen, menu);
 		return true;
 	}
-	
+
 	// called when mapButton is clicked
 	public void mapButtonClicked() {
 		Context context = this;
 		Intent intent = new Intent(context, MapScreen.class);
-        startActivity(intent);
+		startActivity(intent);
 	}
 }

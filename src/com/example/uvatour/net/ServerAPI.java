@@ -13,8 +13,10 @@ public class ServerAPI {
 		this.current = a;
 	}
 
-	public void getDirectionRequest(double ilat, double ilon, double dlat, double dlon, final GetCallback callback) {
-		String restUrl = Utils.constructRestUrlForDirectionRequest(ilat, ilon, dlat, dlon);
+	public void getDirectionRequest(double ilat, double ilon, double dlat,
+			double dlon, final GetCallback callback) {
+		String restUrl = Utils.constructRestUrlForDirectionRequest(ilat, ilon,
+				dlat, dlon);
 		new GetTask(restUrl, "Get Directions", new GetCallback(current) {
 			@Override
 			public void onDataReceived(String response) {

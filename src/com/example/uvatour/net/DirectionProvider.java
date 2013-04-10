@@ -25,8 +25,9 @@ public class DirectionProvider {
 
 	public boolean query(LatLng latLng, TourStop tourStop) {
 		System.out.println("Creating Request");
-		server.getDirectionRequest(latLng.latitude, latLng.longitude, tourStop.getLatitude(),
-				tourStop.getLongitude(), new GetCallback(current) {
+		server.getDirectionRequest(latLng.latitude, latLng.longitude,
+				tourStop.getLatitude(), tourStop.getLongitude(),
+				new GetCallback(current) {
 					public void onDataReceived(String response) {
 						System.out.println("Response Received");
 						String[] encodedPoints = Utils
@@ -34,8 +35,9 @@ public class DirectionProvider {
 						List<LatLng> directions = new ArrayList<LatLng>();
 						for (String s : encodedPoints)
 							directions.addAll(decode(s));
-						
-						MapAdapter mAdapter = new MapAdapter(((MapScreen)current).getMap());
+
+						MapAdapter mAdapter = new MapAdapter(
+								((MapScreen) current).getMap());
 						mAdapter.plotRoute(directions);
 					}
 				});

@@ -71,10 +71,11 @@ public class MapScreen extends Screen {
 			AlertDialog dialog = builder.create();
 			dialog.show();
 		}
-		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
+				.getMap();
 		mMap.setMyLocationEnabled(true);
 		mMap.setOnMyLocationChangeListener(new LocationListener());
-		
+
 		provider = new DirectionProvider(mMap, this);
 
 		stops = loadStops();
@@ -93,21 +94,22 @@ public class MapScreen extends Screen {
 	// file.
 	private ArrayList<TourStop> loadStops() {
 		ArrayList<TourStop> list = new ArrayList<TourStop>();
-		list.add(new TourStop(38.0545958, -78.5347012, "www.google.com", "history"));
+		list.add(new TourStop(38.0545958, -78.5347012, "www.google.com",
+				"history"));
 		return list;
 	}
 
-	//defines an OnMyLocationChangeListener which will animate the map to the user's current
-	//position whenever the user moves.
+	// defines an OnMyLocationChangeListener which will animate the map to the
+	// user's current
+	// position whenever the user moves.
 	private class LocationListener implements OnMyLocationChangeListener {
 		@Override
 		public void onMyLocationChange(Location location) {
-			CameraUpdate update = CameraUpdateFactory.newLatLng(new LatLng(
-					location.getLatitude(), location.getLongitude()));
+			CameraUpdate update = CameraUpdateFactory.newLatLngZoom(new LatLng(
+					location.getLatitude(), location.getLongitude()), 14.0f);
 			mMap.animateCamera(update);
 			latLng = new LatLng(location.getLatitude(), location.getLongitude());
-			if(firstTime) {
-				System.out.println("first");
+			if (firstTime) {
 				provider.query(latLng, stops.get(0));
 				firstTime = false;
 			}
