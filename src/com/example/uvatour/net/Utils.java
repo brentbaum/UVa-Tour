@@ -1,7 +1,13 @@
 package com.example.uvatour.net;
 
+import java.io.File;
+
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 public class Utils {
 
@@ -27,16 +33,9 @@ public class Utils {
 	}
 
 	public static String[] parseResponseForPolyPoints(String response) {
-		ObjectMapper m = new ObjectMapper();
-		// can either use mapper.readTree(source), or mapper.readValue(source, JsonNode.class);
-		JsonNode rootNode;
-		try {
-			rootNode = m.readTree(response);
-			JsonNode nameNode = rootNode.path("status");
-			System.out.println(nameNode.asText());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Gson gson = new Gson();
+		DirectionResponseObject dires = gson.fromJson(response, DirectionResponseObject.class);
+		System.out.println(dires.toString());
 		return new String[5];
 	}
 }
