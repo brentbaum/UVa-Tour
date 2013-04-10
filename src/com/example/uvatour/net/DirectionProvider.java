@@ -5,6 +5,8 @@ import java.util.List;
 
 import android.app.Activity;
 
+import com.example.uvatour.MapAdapter;
+import com.example.uvatour.MapScreen;
 import com.example.uvatour.TourScreen;
 import com.example.uvatour.TourStop;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,7 +23,7 @@ public class DirectionProvider {
 		current = (TourScreen) a;
 	}
 
-	public List<LatLng> query(LatLng latLng, TourStop tourStop) {
+	public boolean query(LatLng latLng, TourStop tourStop) {
 		server.getDirectionRequest(latLng.latitude, latLng.longitude, tourStop.getLatitude(),
 				tourStop.getLongitude(), new GetCallback(current) {
 					public void onDataReceived(String response) {
@@ -30,9 +32,11 @@ public class DirectionProvider {
 						List<LatLng> directions = new ArrayList<LatLng>();
 						for (String s : encodedPoints)
 							directions.addAll(decode(s));
+						MapAdapter mAdapter = new MapAdapter(((MapScreen)current).getMap());
+						mAdapter.plotRoute(directions);
 					}
 				});
-		return null;
+		return true;
 	}
 
 	public static List<LatLng> decode(String encoded_points) {

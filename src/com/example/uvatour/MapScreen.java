@@ -60,6 +60,9 @@ public class MapScreen extends Screen {
 	@Override
 	protected void onStop () {
 		super.onStop();
-		
+	}
+	
+	public GoogleMap getMap() {
+		return map;
 	}
 }

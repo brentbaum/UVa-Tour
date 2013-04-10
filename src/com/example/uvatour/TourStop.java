@@ -14,10 +14,18 @@ public class TourStop {
 	}
 
 	public double getLatitude() {
-		return coordinates.latitude;
+		return this.coordinates.latitude;
 	}
 	
 	public double getLongitude() {
-		return coordinates.longitude;
+		return this.coordinates.longitude;
+	}
+	
+	public String getPictureUrl() {
+		return this.pictureUrl;
+	}
+	
+	public String getHistory() {
+		return this.history;
 	}
 }
