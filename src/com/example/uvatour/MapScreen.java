@@ -30,8 +30,10 @@ public class MapScreen extends Screen {
 	private LocationManager locationManager;
 	private LatLng latLng;
 	private GoogleMap mMap;
-	private MarkerOptions marker;
+	private boolean firstTime;
 	public List<LatLng> routePoints;
+	private DirectionProvider provider;
+	private ArrayList<TourStop> stops;
 
 	// this method is called every time the screen is created from scratch
 	@Override
@@ -73,14 +75,9 @@ public class MapScreen extends Screen {
 		mMap.setMyLocationEnabled(true);
 		mMap.setOnMyLocationChangeListener(new LocationListener());
 		
-		DirectionProvider provider = new DirectionProvider(mMap, this);
-		MapAdapter adapter = new MapAdapter(mMap);
+		provider = new DirectionProvider(mMap, this);
 
-		ArrayList<TourStop> stops = loadStops();
-
-		if (latLng != null) {
-			provider.query(latLng, stops.get(0));
-		}
+		stops = loadStops();
 	}
 
 	@Override
@@ -104,7 +101,12 @@ public class MapScreen extends Screen {
 			CameraUpdate update = CameraUpdateFactory.newLatLng(new LatLng(
 					location.getLatitude(), location.getLongitude()));
 			mMap.animateCamera(update);
+			System.out.println(location.getLatitude()+", "+location.getLongitude());
 			latLng = new LatLng(location.getLatitude(), location.getLongitude());
+			if(firstTime) {
+				provider.query(latLng, stops.get(0));
+				firstTime = false;
+			}
 		}
 	}
 }

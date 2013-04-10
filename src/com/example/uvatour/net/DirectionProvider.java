@@ -15,7 +15,7 @@ import com.google.android.gms.maps.model.LatLng;
 public class DirectionProvider {
 	GoogleMap mMap;
 	ServerAPI server;
-	TourScreen current;
+	MapScreen current;
 
 	public DirectionProvider(GoogleMap map, Activity a) {
 		this.mMap = map;
