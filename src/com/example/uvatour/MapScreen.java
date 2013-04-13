@@ -18,11 +18,8 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationChangeListener;
-import com.google.android.gms.maps.LocationSource.OnLocationChangedListener;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapScreen extends Screen {
 
@@ -55,12 +52,13 @@ public class MapScreen extends Screen {
 			builder.setTitle("GPS not enabled");
 
 			// set the dialog message
-			builder.setMessage("The GPS is not on. Click Accept to turn it on.");
+			builder.setMessage("The GPS is not on. " +
+					"Click Accept to turn it on.");
 			builder.setCancelable(false);
 			builder.setPositiveButton("Accept",
 					new DialogInterface.OnClickListener() {
 						@Override
-						public void onClick(DialogInterface dialog, int which) {
+						public void onClick(DialogInterface dialog, int which){
 							Intent settingsIntent = new Intent(
 									Settings.ACTION_LOCATION_SOURCE_SETTINGS);
 							startActivity(settingsIntent);
@@ -81,13 +79,8 @@ public class MapScreen extends Screen {
 		stops = loadStops();
 	}
 
-	@Override
-	protected void onStop() {
-		super.onStop();
-	}
-
 	public GoogleMap getMap() {
-		return mMap;
+		return mMap;	
 	}
 
 	// loads stop's coordinates, history, and picture url from an external txt

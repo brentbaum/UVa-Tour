@@ -7,7 +7,6 @@ import android.app.Activity;
 
 import com.example.uvatour.MapAdapter;
 import com.example.uvatour.MapScreen;
-import com.example.uvatour.TourScreen;
 import com.example.uvatour.TourStop;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;

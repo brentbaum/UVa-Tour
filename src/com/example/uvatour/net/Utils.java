@@ -1,7 +1,5 @@
 package com.example.uvatour.net;
 
-import java.io.File;
-
 import com.example.uvatour.net.DirectionResponseObject.Route.Leg.Step;
 import com.google.gson.Gson;
 
