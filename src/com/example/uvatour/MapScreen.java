@@ -2,6 +2,8 @@ package com.example.uvatour;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -11,6 +13,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -38,7 +41,6 @@ public class MapScreen extends Screen {
 	private DirectionProvider provider;
 	private ArrayList<TourStop> stops;
 	private TourStop current;
-	
 
 	// this method is called every time the screen is created from scratch
 	@Override
@@ -82,7 +84,7 @@ public class MapScreen extends Screen {
 		mMap.setOnMyLocationChangeListener(new LocationListener());
 
 		provider = new DirectionProvider(mMap, this);
-		
+
 		loadStops();
 	}
 
@@ -112,51 +114,48 @@ public class MapScreen extends Screen {
 		}
 	}
 
-	public boolean loadStops()
-    {
+	public boolean loadStops() {
 		TourStop previous = null;
-    	String filename = "stops.txt";
-        Scanner scanner = null;
-        try
-        {
-            scanner = new Scanner(new File(filename));
-        }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-        }
+		AssetFileDescriptor descriptor = null;
+		try {
+			descriptor = getAssets().openFd("myfile.txt");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		FileReader reader = new FileReader(descriptor.getFileDescriptor());
+		Scanner scanner = null;
+			scanner = new Scanner(reader);
 
-        String title;
-        String history;
-        String url;
-        double lat;
-        double lon;
+		String title;
+		String history;
+		String url;
+		double lat;
+		double lon;
 
-        // data guaranteed to always be in groups of 5 lines
-        while (scanner.hasNext())
-        {
-            title = scanner.nextLine();
-            history = scanner.nextLine();
-            url = scanner.nextLine();
-            lat = scanner.nextDouble();
-            lon = scanner.nextDouble();
-            
-            scanner.nextLine();
-            
-            TourStop temp = new TourStop(title, history, url, lat, lon);
-            
-            System.out.println(temp);
-            
-            if(previous == null) {
-            	previous = temp;
-            	current = temp;
-            }
-            else {
-	            previous.setNext(temp);
-	            previous = temp;
-            }
-        }
-        System.out.println("Loaded Stops");
-        return true;
-    }
+		// data guaranteed to always be in groups of 5 lines
+		while (scanner.hasNext()) {
+			title = scanner.nextLine();
+			history = scanner.nextLine();
+			url = scanner.nextLine();
+			lat = scanner.nextDouble();
+			lon = scanner.nextDouble();
+
+			scanner.nextLine();
+
+			TourStop temp = new TourStop(title, history, url, lat, lon);
+
+			System.out.println(temp);
+
+			if (previous == null) {
+				previous = temp;
+				current = temp;
+			} else {
+				previous.setNext(temp);
+				previous = temp;
+			}
+		}
+		System.out.println("Loaded Stops");
+		return true;
+	}
 }
