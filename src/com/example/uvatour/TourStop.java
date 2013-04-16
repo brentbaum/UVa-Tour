@@ -4,13 +4,16 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class TourStop {
 	private LatLng coordinates;
+	private String title;
 	private String pictureUrl;
 	private String history;
+	private TourStop nextStop;
 
-	public TourStop(double lat, double lon, String url, String his) {
+	public TourStop(String title, String url, String his, double lat, double lon) {
 		this.coordinates = new LatLng(lat, lon);
 		this.pictureUrl = url;
 		this.history = his;
+		this.title = title;
 	}
 
 	public double getLatitude() {
@@ -27,5 +30,18 @@ public class TourStop {
 
 	public String getHistory() {
 		return this.history;
+	}
+
+	public void setNext(TourStop temp) {
+		this.nextStop = temp;
+	}
+	
+	public TourStop getNext() {
+		return this.nextStop;
+	}
+	
+	@Override
+	public String toString() {
+		return "Name: " + title + "\nurl: " + pictureUrl + "lat/lng: " + coordinates;
 	}
 }

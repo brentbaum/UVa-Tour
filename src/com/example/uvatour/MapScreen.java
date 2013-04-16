@@ -1,7 +1,10 @@
 package com.example.uvatour;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import sofia.app.Screen;
 import android.app.AlertDialog;
@@ -18,8 +21,11 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationChangeListener;
+import com.google.android.gms.maps.LocationSource.OnLocationChangedListener;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapScreen extends Screen {
 
@@ -31,6 +37,8 @@ public class MapScreen extends Screen {
 	public List<LatLng> routePoints;
 	private DirectionProvider provider;
 	private ArrayList<TourStop> stops;
+	private TourStop current;
+	
 
 	// this method is called every time the screen is created from scratch
 	@Override
@@ -52,13 +60,12 @@ public class MapScreen extends Screen {
 			builder.setTitle("GPS not enabled");
 
 			// set the dialog message
-			builder.setMessage("The GPS is not on. " +
-					"Click Accept to turn it on.");
+			builder.setMessage("The GPS is not on. Click Accept to turn it on.");
 			builder.setCancelable(false);
 			builder.setPositiveButton("Accept",
 					new DialogInterface.OnClickListener() {
 						@Override
-						public void onClick(DialogInterface dialog, int which){
+						public void onClick(DialogInterface dialog, int which) {
 							Intent settingsIntent = new Intent(
 									Settings.ACTION_LOCATION_SOURCE_SETTINGS);
 							startActivity(settingsIntent);
@@ -75,21 +82,17 @@ public class MapScreen extends Screen {
 		mMap.setOnMyLocationChangeListener(new LocationListener());
 
 		provider = new DirectionProvider(mMap, this);
+		
+		loadStops();
+	}
 
-		stops = loadStops();
+	@Override
+	protected void onStop() {
+		super.onStop();
 	}
 
 	public GoogleMap getMap() {
-		return mMap;	
-	}
-
-	// loads stop's coordinates, history, and picture url from an external txt
-	// file.
-	private ArrayList<TourStop> loadStops() {
-		ArrayList<TourStop> list = new ArrayList<TourStop>();
-		list.add(new TourStop(38.0545958, -78.5347012, "www.google.com",
-				"history"));
-		return list;
+		return mMap;
 	}
 
 	// defines an OnMyLocationChangeListener which will animate the map to the
@@ -103,9 +106,57 @@ public class MapScreen extends Screen {
 			mMap.animateCamera(update);
 			latLng = new LatLng(location.getLatitude(), location.getLongitude());
 			if (firstTime) {
-				provider.query(latLng, stops.get(0));
+				provider.query(latLng, current);
 				firstTime = false;
 			}
 		}
 	}
+
+	public boolean loadStops()
+    {
+		TourStop previous = null;
+    	String filename = "stops.txt";
+        Scanner scanner = null;
+        try
+        {
+            scanner = new Scanner(new File(filename));
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+
+        String title;
+        String history;
+        String url;
+        double lat;
+        double lon;
+
+        // data guaranteed to always be in groups of 5 lines
+        while (scanner.hasNext())
+        {
+            title = scanner.nextLine();
+            history = scanner.nextLine();
+            url = scanner.nextLine();
+            lat = scanner.nextDouble();
+            lon = scanner.nextDouble();
+            
+            scanner.nextLine();
+            
+            TourStop temp = new TourStop(title, history, url, lat, lon);
+            
+            System.out.println(temp);
+            
+            if(previous == null) {
+            	previous = temp;
+            	current = temp;
+            }
+            else {
+	            previous.setNext(temp);
+	            previous = temp;
+            }
+        }
+        System.out.println("Loaded Stops");
+        return true;
+    }
 }
