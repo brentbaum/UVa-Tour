@@ -15,7 +15,6 @@ public class TourStop {
 		this.history = his;
 		this.title = title;
 	}
-
 	public double getLatitude() {
 		return this.coordinates.latitude;
 	}

@@ -25,8 +25,7 @@ public class DirectionProvider {
 	public boolean query(LatLng latLng, TourStop tourStop) {
 		server.getDirectionRequest(latLng.latitude, latLng.longitude,
 				tourStop.getLatitude(), tourStop.getLongitude(),
-				new GetCallback(current) {
-					public void onDataReceived(String response) {
+				new GetCallback(current) {			public void onDataReceived(String response) {
 						String[] encodedPoints = Utils
 								.parseResponseForPolyPoints(response);
 						List<LatLng> directions = new ArrayList<LatLng>();

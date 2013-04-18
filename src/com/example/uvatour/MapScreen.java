@@ -42,6 +42,7 @@ public class MapScreen extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.mapscreen);
 
 		// initializes the location manager
 		locationManager = (LocationManager) this
@@ -81,7 +82,9 @@ public class MapScreen extends FragmentActivity {
 
 		provider = new DirectionProvider(mMap, this);
 
-		loadStops();
+		// producing errors on file read
+		//loadStops();
+		current = new TourStop("test", null, null, 38.03386, -78.50966);
 
 		// creates the adapter that serves up fragments
 		historyFragmentPagerAdapter = new HistoryFragmentPagerAdapter(getSupportFragmentManager());
@@ -121,7 +124,7 @@ public class MapScreen extends FragmentActivity {
 		TourStop previous = null;
 		AssetFileDescriptor descriptor = null;
 		try {
-			descriptor = getAssets().openFd("myfile.txt");
+			descriptor = getAssets().openFd("stops.txt");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

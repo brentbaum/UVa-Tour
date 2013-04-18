@@ -10,7 +10,6 @@ import android.view.View;
 public class TourScreen extends Activity {
 
 	// fields
-	// these will be automatically filled by sofia
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
