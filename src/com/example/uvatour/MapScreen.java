@@ -1,14 +1,10 @@
 package com.example.uvatour;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import sofia.app.Screen;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,19 +14,18 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 
 import com.example.uvatour.net.DirectionProvider;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationChangeListener;
-import com.google.android.gms.maps.LocationSource.OnLocationChangedListener;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapScreen extends Screen {
+public class MapScreen extends FragmentActivity {
 
 	// fields
 	private LocationManager locationManager;
@@ -39,8 +34,9 @@ public class MapScreen extends Screen {
 	private boolean firstTime = true;
 	public List<LatLng> routePoints;
 	private DirectionProvider provider;
-	private ArrayList<TourStop> stops;
 	private TourStop current;
+	private HistoryFragmentPagerAdapter historyFragmentPagerAdapter;
+	private ViewPager viewPager;
 
 	// this method is called every time the screen is created from scratch
 	@Override
@@ -66,19 +62,19 @@ public class MapScreen extends Screen {
 			builder.setCancelable(false);
 			builder.setPositiveButton("Accept",
 					new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							Intent settingsIntent = new Intent(
-									Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-							startActivity(settingsIntent);
-						}
-					});
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Intent settingsIntent = new Intent(
+							Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+					startActivity(settingsIntent);
+				}
+			});
 
 			// create the dialog and show it
 			AlertDialog dialog = builder.create();
 			dialog.show();
 		}
-		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
+		mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
 				.getMap();
 		mMap.setMyLocationEnabled(true);
 		mMap.setOnMyLocationChangeListener(new LocationListener());
@@ -86,6 +82,13 @@ public class MapScreen extends Screen {
 		provider = new DirectionProvider(mMap, this);
 
 		loadStops();
+
+		// creates the adapter that serves up fragments
+		historyFragmentPagerAdapter = new HistoryFragmentPagerAdapter(getSupportFragmentManager());
+
+		// set up the ViewPager and associate it with the adapter
+		viewPager = (ViewPager) findViewById(R.id.pager);
+		viewPager.setAdapter(historyFragmentPagerAdapter);
 	}
 
 	@Override
@@ -120,12 +123,11 @@ public class MapScreen extends Screen {
 		try {
 			descriptor = getAssets().openFd("myfile.txt");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		FileReader reader = new FileReader(descriptor.getFileDescriptor());
 		Scanner scanner = null;
-			scanner = new Scanner(reader);
+		scanner = new Scanner(reader);
 
 		String title;
 		String history;

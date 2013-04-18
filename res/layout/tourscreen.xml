@@ -92,6 +92,7 @@
         android:padding="15dp"
         android:text="@string/mapButtonString"
         android:textColor="@android:color/white"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:onClick="toMapScreen" />
 
 </RelativeLayout>

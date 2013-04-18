@@ -1,14 +1,13 @@
 package com.example.uvatour;
 
-import sofia.app.OptionsMenu;
-import sofia.app.Screen;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 
-@OptionsMenu
-public class TourScreen extends Screen {
+public class TourScreen extends Activity {
 
 	// fields
 	// these will be automatically filled by sofia
@@ -27,7 +26,7 @@ public class TourScreen extends Screen {
 	}
 
 	// called when mapButton is clicked
-	public void mapButtonClicked() {
+	public void toMapScreen(View view) {
 		Context context = this;
 		Intent intent = new Intent(context, MapScreen.class);
 		startActivity(intent);
