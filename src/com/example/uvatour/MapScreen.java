@@ -1,7 +1,7 @@
 package com.example.uvatour;
 
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,7 +9,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -83,7 +83,7 @@ public class MapScreen extends FragmentActivity {
 		provider = new DirectionProvider(mMap, this);
 
 		// producing errors on file read
-		//loadStops();
+		loadStops();
 		current = new TourStop("test", null, null, 38.03386, -78.50966);
 
 		// creates the adapter that serves up fragments
@@ -122,15 +122,17 @@ public class MapScreen extends FragmentActivity {
 
 	public boolean loadStops() {
 		TourStop previous = null;
-		AssetFileDescriptor descriptor = null;
+		AssetManager manager = null;
+		InputStream is = null;
 		try {
-			descriptor = getAssets().openFd("stops.txt");
+			manager = this.getAssets();
+			is =  manager.open("stops.txt");
+			//.openFd("stops.txt");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		FileReader reader = new FileReader(descriptor.getFileDescriptor());
 		Scanner scanner = null;
-		scanner = new Scanner(reader);
+		scanner = new Scanner(is);
 
 		String title;
 		String history;
