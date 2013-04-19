@@ -10,4 +10,6 @@
     <string name="dev3">Ram Ramkumar</string>
     <string name="dev4">Jack Dingilian</string>
 	<string name="next_stop">Next Stop</string>
+	<string name="congrats">Congratulations, You've Completed the Tour</string>
+	<string name="restartButtonString">Restart</string>
 </resources>
