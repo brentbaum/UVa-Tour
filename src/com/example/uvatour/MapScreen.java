@@ -124,7 +124,9 @@ public class MapScreen extends FragmentActivity {
 			provider.drawNext(latLng, tours.get(currentStop));
 		}
 		else {
-			//show congratulations screen
+			Context context = this;
+			Intent intent = new Intent(context, CongratsScreen.class);
+			startActivity(intent);
 		}
 	}
 

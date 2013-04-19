@@ -22,7 +22,7 @@ public class CongratsScreen extends Activity {
 		       //Sets up viedeoview for congratscreen
 		       VideoView videoView = (VideoView)findViewById(R.id.videoView1);
 		       videoView.setKeepScreenOn(true);
-		       videoView.setVideoPath("sdcard/wahoowa.mp4");
+		       videoView.setVideoPath("assets/wahoowa.mp4");
 		       videoView.start();
 		       videoView.requestFocus();   
 		}
