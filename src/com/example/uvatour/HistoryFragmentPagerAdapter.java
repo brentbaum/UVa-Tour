@@ -2,6 +2,10 @@ package com.example.uvatour;
 
 import java.util.ArrayList;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -82,7 +86,11 @@ public class HistoryFragmentPagerAdapter extends FragmentPagerAdapter {
 			((TextView) rootView.findViewById(R.id.name)).setText(tourStop.getTitle());
 			
 			// image of tour stop
-			((ImageView) rootView.findViewById(R.id.image)).setImageResource(R.drawable.ic_launcher);
+			ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getActivity()).build();
+			ImageLoader.getInstance().init(config);
+			ImageLoader imageLoader = ImageLoader.getInstance();
+			ImageView image = ((ImageView) rootView.findViewById(R.id.image));
+			imageLoader.displayImage(tourStop.getPictureUrl(), image);
 			
 			// history of tour stop
 			((TextView) rootView.findViewById(R.id.history_text)).setText(tourStop.getHistory());
