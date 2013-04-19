@@ -9,5 +9,5 @@
     <string name="dev2">Alex Thomas</string>
     <string name="dev3">Ram Ramkumar</string>
     <string name="dev4">Jack Dingilian</string>
-
+	<string name="next_stop">Next Stop</string>
 </resources>

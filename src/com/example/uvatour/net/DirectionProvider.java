@@ -22,7 +22,7 @@ public class DirectionProvider {
 		current = (MapScreen) a;
 	}
 
-	public boolean query(LatLng latLng, TourStop tourStop) {
+	public boolean drawNext(LatLng latLng, TourStop tourStop) {
 		server.getDirectionRequest(latLng.latitude, latLng.longitude,
 				tourStop.getLatitude(), tourStop.getLongitude(),
 				new GetCallback(current) {			public void onDataReceived(String response) {

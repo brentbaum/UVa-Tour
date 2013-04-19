@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 
 import com.example.uvatour.net.DirectionProvider;
 import com.google.android.gms.maps.CameraUpdate;
@@ -65,20 +66,20 @@ public class MapScreen extends FragmentActivity {
 			builder.setCancelable(false);
 			builder.setPositiveButton("Accept",
 					new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					Intent settingsIntent = new Intent(
-							Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-					startActivity(settingsIntent);
-				}
-			});
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Intent settingsIntent = new Intent(
+									Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+							startActivity(settingsIntent);
+						}
+					});
 
 			// create the dialog and show it
 			AlertDialog dialog = builder.create();
 			dialog.show();
 		}
-		mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
-				.getMap();
+		mMap = ((SupportMapFragment) getSupportFragmentManager()
+				.findFragmentById(R.id.map)).getMap();
 		mMap.setMyLocationEnabled(true);
 		mMap.setOnMyLocationChangeListener(new LocationListener());
 
@@ -88,7 +89,8 @@ public class MapScreen extends FragmentActivity {
 		loadStops();
 
 		// creates the adapter that serves up fragments
-		historyFragmentPagerAdapter = new HistoryFragmentPagerAdapter(getSupportFragmentManager(), tours);
+		historyFragmentPagerAdapter = new HistoryFragmentPagerAdapter(
+				getSupportFragmentManager(), tours);
 
 		// set up the ViewPager and associate it with the adapter
 		viewPager = (ViewPager) findViewById(R.id.pager);
@@ -110,9 +112,19 @@ public class MapScreen extends FragmentActivity {
 			mMap.animateCamera(update);
 			latLng = new LatLng(location.getLatitude(), location.getLongitude());
 			if (firstTime) {
-				provider.query(latLng, tours.get(currentStop));
+				provider.drawNext(latLng, tours.get(currentStop));
 				firstTime = false;
 			}
+		}
+	}
+
+	public void onNextClick(View v) {
+		if (currentStop < tours.size()) {
+			currentStop++;
+			provider.drawNext(latLng, tours.get(currentStop));
+		}
+		else {
+			//show congratulations screen
 		}
 	}
 
@@ -121,7 +133,7 @@ public class MapScreen extends FragmentActivity {
 		InputStream is = null;
 		try {
 			manager = this.getAssets();
-			is =  manager.open("stops.txt");
+			is = manager.open("stops.txt");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -149,7 +161,7 @@ public class MapScreen extends FragmentActivity {
 
 			tours.add(new TourStop(title, url, history, lat, lon));
 		}
-		
+
 		return true;
 	}
 }
