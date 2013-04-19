@@ -2,6 +2,7 @@ package com.example.uvatour;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -34,7 +35,8 @@ public class MapScreen extends FragmentActivity {
 	private boolean firstTime = true;
 	public List<LatLng> routePoints;
 	private DirectionProvider provider;
-	private TourStop current;
+	private ArrayList<TourStop> tours = new ArrayList<TourStop>();
+	private int currentStop = 0;
 	private HistoryFragmentPagerAdapter historyFragmentPagerAdapter;
 	private ViewPager viewPager;
 
@@ -82,21 +84,15 @@ public class MapScreen extends FragmentActivity {
 
 		provider = new DirectionProvider(mMap, this);
 
-		// producing errors on file read
+		// loads tour stops into array list
 		loadStops();
-		current = new TourStop("test", null, null, 38.03386, -78.50966);
 
 		// creates the adapter that serves up fragments
-		historyFragmentPagerAdapter = new HistoryFragmentPagerAdapter(getSupportFragmentManager());
+		historyFragmentPagerAdapter = new HistoryFragmentPagerAdapter(getSupportFragmentManager(), tours);
 
 		// set up the ViewPager and associate it with the adapter
 		viewPager = (ViewPager) findViewById(R.id.pager);
 		viewPager.setAdapter(historyFragmentPagerAdapter);
-	}
-
-	@Override
-	protected void onStop() {
-		super.onStop();
 	}
 
 	public GoogleMap getMap() {
@@ -114,20 +110,18 @@ public class MapScreen extends FragmentActivity {
 			mMap.animateCamera(update);
 			latLng = new LatLng(location.getLatitude(), location.getLongitude());
 			if (firstTime) {
-				provider.query(latLng, current);
+				provider.query(latLng, tours.get(currentStop));
 				firstTime = false;
 			}
 		}
 	}
 
 	public boolean loadStops() {
-		TourStop previous = null;
 		AssetManager manager = null;
 		InputStream is = null;
 		try {
 			manager = this.getAssets();
 			is =  manager.open("stops.txt");
-			//.openFd("stops.txt");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -148,21 +142,14 @@ public class MapScreen extends FragmentActivity {
 			lat = scanner.nextDouble();
 			lon = scanner.nextDouble();
 
-			scanner.nextLine();
+			if (scanner.hasNext())
+				scanner.nextLine();
+			if (scanner.hasNext())
+				scanner.nextLine();
 
-			TourStop temp = new TourStop(title, history, url, lat, lon);
-
-			System.out.println(temp);
-
-			if (previous == null) {
-				previous = temp;
-				current = temp;
-			} else {
-				previous.setNext(temp);
-				previous = temp;
-			}
+			tours.add(new TourStop(title, url, history, lat, lon));
 		}
-		System.out.println("Loaded Stops");
+		
 		return true;
 	}
 }

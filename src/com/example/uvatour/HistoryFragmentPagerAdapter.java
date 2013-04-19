@@ -1,5 +1,8 @@
 package com.example.uvatour;
 
+import java.util.ArrayList;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,15 +17,35 @@ public class HistoryFragmentPagerAdapter extends FragmentPagerAdapter {
 
 	// fields
 	private static int NUM_OF_TOUR_STOPS = 6;
+	private ArrayList<TourStop> tours;
 
 	// constructor
-	public HistoryFragmentPagerAdapter (FragmentManager fragmentManager) {
+	public HistoryFragmentPagerAdapter (FragmentManager fragmentManager, ArrayList<TourStop> tours) {
 		super(fragmentManager);
+		this.tours = tours;
 	}
 
 	@Override
 	public Fragment getItem(int index) {
 		switch(index) {
+		case 0:
+			// tour stop 1
+			return new HistoryFragment(tours.get(0));
+		case 1:
+			// tour stop 2
+			return new HistoryFragment(tours.get(1));
+		case 2:
+			// tour stop 2
+			return new HistoryFragment(tours.get(2));
+		case 3:
+			// tour stop 2
+			return new HistoryFragment(tours.get(3));
+		case 4:
+			// tour stop 2
+			return new HistoryFragment(tours.get(4));
+		case 5:
+			// tour stop 2
+			return new HistoryFragment(tours.get(5));
 		default:
 			// creates the first tour stop
 			Fragment fragment = new HistoryFragment();
@@ -35,25 +58,34 @@ public class HistoryFragmentPagerAdapter extends FragmentPagerAdapter {
 		return NUM_OF_TOUR_STOPS;
 	}
 
+	@SuppressLint("ValidFragment")
 	public static class HistoryFragment extends Fragment {
+		
+		// fields
+		TourStop tourStop;
+		
+		public HistoryFragment() {
+			super();
+		}
+		
+		public HistoryFragment(TourStop tourStop) {
+			super();
+			this.tourStop = tourStop;
+		}
+		
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.historyfragment, container, false);
-			((TextView) rootView.findViewById(R.id.name)).setText(
-					/*METHOD FOR TEXT INPUT GOES HERE*/"Testing!");
+			
+			// title of tour stop
+			((TextView) rootView.findViewById(R.id.name)).setText(tourStop.getTitle());
+			
+			// image of tour stop
 			((ImageView) rootView.findViewById(R.id.image)).setImageResource(R.drawable.ic_launcher);
-			((TextView) rootView.findViewById(R.id.history_text)).setText(
-					/*METHOD FOR TEXT INPUT GOES HERE*/"Cupcake ipsum dolor sit amet wafer gingerbread pastry danish. Sugar plum brownie cotton candy halvah. " +
-							"Candy canes oat cake cake lollipop jujubes topping gingerbread. Donut marzipan lollipop lemon drops donut chocolate bar jujubes. " +
-							"Lemon drops candy muffin halvah apple pie candy jelly-o jelly-o. Powder sweet roll candy canes jelly-o dessert. Lemon drops sweet " +
-							"roll oat cake donut pie sweet. Carrot cake liquorice cotton candy. Toffee applicake cookie. Croissant bonbon sweet roll oat " +
-							"cake cookie toffee cupcake croissant candy. Pastry lemon drops marzipan ice cream lollipop.\n\n\t Sweet jelly-o lemon drops. Tootsie roll " +
-							"danish marzipan. Powder tart pastry sweet chupa chups faworki liquorice macaroon topping. Tart halvah soufflé chupa chups. Toffee " +
-							"macaroon chupa chups macaroon jujubes jujubes dessert liquorice. Carrot cake croissant brownie faworki pudding jelly-o brownie jujubes." +
-							" Croissant pudding jelly beans sweet roll donut. Pudding pie muffin sesame snaps wafer. Lollipop soufflé ice cream. Cheesecake " +
-							"chocolate sugar plum chocolate bar. Carrot cake powder gingerbread wafer lollipop pastry jelly beans wypas. Tootsie roll carrot cake" +
-					" topping bear claw caramels. Donut bonbon applicake cotton candy.");
+			
+			// history of tour stop
+			((TextView) rootView.findViewById(R.id.history_text)).setText(tourStop.getHistory());
 			return rootView;
 		}
 	}
