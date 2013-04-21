@@ -15,11 +15,10 @@ int attr zOrderOnTop 0x7f01000d
 int dimen activity_horizontal_margin 0x7f070000
 int dimen activity_vertical_margin 0x7f070001
 int drawable card_background 0x7f020000
-int drawable color_bar_blue 0x7f020001
-int drawable color_bar_light_blue 0x7f020002
-int drawable color_bar_orange 0x7f020003
-int drawable color_bar_red 0x7f020004
-int drawable ic_launcher 0x7f020005
+int drawable color_bar_light_blue 0x7f020001
+int drawable color_bar_orange 0x7f020002
+int drawable color_bar_red 0x7f020003
+int drawable ic_launcher 0x7f020004
 int id button1 0x7f050006
 int id color_bar 0x7f05000d
 int id history_text 0x7f05000a
