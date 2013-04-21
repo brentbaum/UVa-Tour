@@ -20,6 +20,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.example.uvatour.net.DirectionProvider;
+import com.example.uvatour.net.Utils;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -102,7 +103,6 @@ public class MapScreen extends FragmentActivity {
 		if (currentStop < (tours.size() - 1)) {
 			currentStop++;
 			provider.drawNext(latLng, tours.get(currentStop));
-			updateColorBar();
 		} else {
 			Context context = this;
 			Intent intent = new Intent(context, CongratsScreen.class);
@@ -110,9 +110,18 @@ public class MapScreen extends FragmentActivity {
 		}
 	}
 
-	public void updateColorBar() {
+	public void updateColorBar(Location location) {
+		double distance = Utils.distance(location.getLatitude(), location.getLongitude(),
+				tours.get(currentStop).getLatitude(), tours
+						.get(currentStop).getLongitude());
+		int resource = R.drawable.color_bar_light_blue;
+			resource = R.drawable.color_bar_light_blue;
+		if(distance < 100)
+			resource = R.drawable.color_bar_orange;
+		if(distance < 50)
+			resource = R.drawable.color_bar_red;
 		View bar = findViewById(R.id.color_bar);
-		bar.setBackgroundResource(R.drawable.color_bar_red);
+		bar.setBackgroundResource(resource);
 	}
 
 	public GoogleMap getMap() {
@@ -125,11 +134,11 @@ public class MapScreen extends FragmentActivity {
 	private class LocationListener implements OnMyLocationChangeListener {
 		@Override
 		public void onMyLocationChange(Location location) {
-			updateColorBar();
 			CameraUpdate update = CameraUpdateFactory.newLatLngZoom(new LatLng(
 					location.getLatitude(), location.getLongitude()), 18.0f);
 			mMap.animateCamera(update);
 			latLng = new LatLng(location.getLatitude(), location.getLongitude());
+			updateColorBar(location);
 			if (firstTime) {
 				provider.drawNext(latLng, tours.get(currentStop));
 				firstTime = false;
