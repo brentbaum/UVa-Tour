@@ -66,13 +66,13 @@ public class MapScreen extends FragmentActivity {
 			builder.setCancelable(false);
 			builder.setPositiveButton("Accept",
 					new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					Intent settingsIntent = new Intent(
-							Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-					startActivity(settingsIntent);
-				}
-			});
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Intent settingsIntent = new Intent(
+									Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+							startActivity(settingsIntent);
+						}
+					});
 
 			// create the dialog and show it
 			AlertDialog dialog = builder.create();
@@ -98,19 +98,18 @@ public class MapScreen extends FragmentActivity {
 	}
 
 	// called when the Next Tour button is clicked
-	public void toNextTour (View view) {
-		if (currentStop < (tours.size()-1)) {
+	public void toNextTour(View view) {
+		if (currentStop < (tours.size() - 1)) {
 			currentStop++;
 			provider.drawNext(latLng, tours.get(currentStop));
 			updateColorBar();
-		}
-		else {
+		} else {
 			Context context = this;
 			Intent intent = new Intent(context, CongratsScreen.class);
 			startActivity(intent);
 		}
 	}
-	
+
 	public void updateColorBar() {
 		View bar = findViewById(R.id.color_bar);
 		bar.setBackgroundResource(R.drawable.color_bar_red);
@@ -171,7 +170,6 @@ public class MapScreen extends FragmentActivity {
 
 			tours.add(new TourStop(title, url, history, lat, lon));
 		}
-
 		return true;
 	}
 }
