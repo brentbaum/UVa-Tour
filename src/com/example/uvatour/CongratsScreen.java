@@ -1,3 +1,7 @@
+/*
+ * Some of this code came from:
+ * http://stackoverflow.com/questions/15733749/read-gif-images-using-webview-android
+ */
 package com.example.uvatour;
 
 import android.app.Activity;
@@ -11,17 +15,20 @@ import android.widget.VideoView;
 
 public class CongratsScreen extends Activity {
 
+	// fields
+	private VideoView videoView;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.congratscreen);
-		showVideo();
-		//Sets up viedeoview for congratscreen
-		/*videoView = (VideoView) findViewById(R.id.videoView1);
-		videoView.setKeepScreenOn(true);
-		videoView.setVideoPath("wahoowa");
-		videoView.requestFocus();   
-		videoView.start();*/
+
+		// plays a video
+		videoView = (VideoView)findViewById(R.id.videoView1);
+		videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.wahoowa));
+		videoView.setMediaController(new MediaController(this));
+		videoView.requestFocus();
+		videoView.start();
 	}
 
 	// called when restartButton is clicked
@@ -30,15 +37,4 @@ public class CongratsScreen extends Activity {
 		Intent intent = new Intent(context, MapScreen.class);
 		startActivity(intent);
 	}
-
-	private void showVideo()
-	{
-		VideoView vd = (VideoView)findViewById(R.id.videoView1);
-		Uri uri = Uri.parse("android.resource://package/"+R.raw.wahoowa);
-		MediaController mc = new MediaController(this);
-		vd.setMediaController(mc);
-		vd.setVideoURI(uri);
-		vd.start();
-	}
-
 }

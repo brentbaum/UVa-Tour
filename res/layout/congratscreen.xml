@@ -10,38 +10,39 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".TourScreen" >
 
+    <VideoView
+        android:id="@+id/videoView1"
+        android:layout_width="500dp"
+        android:layout_height="250dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:focusable="true" />
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/button1"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="25dp"
         android:text="@string/congrats"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@android:color/holo_orange_dark" />
+        android:textColor="@android:color/white" />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/videoView1"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="27dp"
         android:background="#04B404"
         android:minHeight="60dp"
         android:minWidth="320dp"
+        android:onClick="toMapScreen"
         android:text="@string/restartButtonString"
         android:textColor="@android:color/white"
-        android:textSize="30sp"
-        android:onClick="toMapScreen" />
-
-    <VideoView
-        android:id="@+id/videoView1"
-        android:layout_width="400dp"
-        android:layout_height="200dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:focusable="true" />
+        android:textSize="30sp" />
 
 </RelativeLayout>
