@@ -102,12 +102,18 @@ public class MapScreen extends FragmentActivity {
 		if (currentStop < (tours.size()-1)) {
 			currentStop++;
 			provider.drawNext(latLng, tours.get(currentStop));
+			updateColorBar();
 		}
 		else {
 			Context context = this;
 			Intent intent = new Intent(context, CongratsScreen.class);
 			startActivity(intent);
 		}
+	}
+	
+	public void updateColorBar() {
+		View bar = findViewById(R.id.color_bar);
+		bar.setBackgroundResource(R.drawable.color_bar_red);
 	}
 
 	public GoogleMap getMap() {

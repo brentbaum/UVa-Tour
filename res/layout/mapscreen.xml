@@ -22,11 +22,20 @@
 	        android:layout_weight="1"
 	        android:layout_height="0dp"/>
         
+        <View
+            android:id="@+id/color_bar"
+            android:layout_width="fill_parent"
+            android:layout_height="3dp"
+            android:layout_marginTop="3dp"
+            android:background="#FF0000FF"
+            android:gravity="left|center"
+            android:orientation="horizontal" />
+        
         <Button 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:onClick="toNextTour"
+            android:onClick="onNextClick"
             android:text="@string/next_stop"></Button>
 	    </LinearLayout>
 
