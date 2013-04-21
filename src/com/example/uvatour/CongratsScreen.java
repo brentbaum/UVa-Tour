@@ -6,18 +6,16 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.MediaController;
 import android.widget.VideoView;
 
 public class CongratsScreen extends Activity {
 
-	// fields
-	private VideoView videoView = null;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//setContentView(R.layout.congratscreen);
-		playVideo();
+		setContentView(R.layout.congratscreen);
+		showVideo();
 		//Sets up viedeoview for congratscreen
 		/*videoView = (VideoView) findViewById(R.id.videoView1);
 		videoView.setKeepScreenOn(true);
@@ -33,13 +31,14 @@ public class CongratsScreen extends Activity {
 		startActivity(intent);
 	}
 
-	public void playVideo() {
-		videoView = (VideoView) findViewById(R.id.videoView1);
-		setContentView(R.layout.congratscreen);
-		Uri video = Uri.parse("android.resource://" + getPackageName() + "/"
-				+ R.raw.wahoowa);
-		videoView.setVideoURI(video);
-		videoView.requestFocus();
-		videoView.start();
+	private void showVideo()
+	{
+		VideoView vd = (VideoView)findViewById(R.id.videoView1);
+		Uri uri = Uri.parse("android.resource://package/"+R.raw.wahoowa);
+		MediaController mc = new MediaController(this);
+		vd.setMediaController(mc);
+		vd.setVideoURI(uri);
+		vd.start();
 	}
+
 }
