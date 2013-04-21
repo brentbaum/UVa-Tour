@@ -17,7 +17,8 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.example.uvatour.net.DirectionProvider;
 import com.google.android.gms.maps.CameraUpdate;
@@ -66,13 +67,13 @@ public class MapScreen extends FragmentActivity {
 			builder.setCancelable(false);
 			builder.setPositiveButton("Accept",
 					new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							Intent settingsIntent = new Intent(
-									Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-							startActivity(settingsIntent);
-						}
-					});
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Intent settingsIntent = new Intent(
+							Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+					startActivity(settingsIntent);
+				}
+			});
 
 			// create the dialog and show it
 			AlertDialog dialog = builder.create();
@@ -97,6 +98,33 @@ public class MapScreen extends FragmentActivity {
 		viewPager.setAdapter(historyFragmentPagerAdapter);
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.mapscreenmenu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item){
+		// handle item selection
+		switch(item.getItemId()) {
+		case R.id.next_stop:
+			if (currentStop < (tours.size()-1)) {
+				currentStop++;
+				provider.drawNext(latLng, tours.get(currentStop));
+			}
+			else {
+				Context context = this;
+				Intent intent = new Intent(context, CongratsScreen.class);
+				startActivity(intent);
+			}
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
 	public GoogleMap getMap() {
 		return mMap;
 	}
@@ -115,18 +143,6 @@ public class MapScreen extends FragmentActivity {
 				provider.drawNext(latLng, tours.get(currentStop));
 				firstTime = false;
 			}
-		}
-	}
-
-	public void onNextClick(View v) {
-		if (currentStop < tours.size()) {
-			currentStop++;
-			provider.drawNext(latLng, tours.get(currentStop));
-		}
-		else {
-			Context context = this;
-			Intent intent = new Intent(context, CongratsScreen.class);
-			startActivity(intent);
 		}
 	}
 

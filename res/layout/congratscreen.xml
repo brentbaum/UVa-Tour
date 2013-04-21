@@ -33,13 +33,15 @@
         android:minWidth="320dp"
         android:text="@string/restartButtonString"
         android:textColor="@android:color/white"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:onClick="toMapScreen" />
 
     <VideoView
         android:id="@+id/videoView1"
         android:layout_width="400dp"
         android:layout_height="200dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:focusable="true" />
 
 </RelativeLayout>

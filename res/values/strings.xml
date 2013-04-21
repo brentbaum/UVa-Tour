@@ -1,7 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">UVaTour</string>
-    <string name="menu_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="mapButtonString">Begin</string>
     <string name="title">UVA Tour</string>
@@ -9,7 +9,8 @@
     <string name="dev2">Alex Thomas</string>
     <string name="dev3">Ram Ramkumar</string>
     <string name="dev4">Jack Dingilian</string>
-	<string name="next_stop">Next Stop</string>
-	<string name="congrats">Congratulations, You've Completed the Tour</string>
-	<string name="restartButtonString">Restart</string>
+    <string name="next_stop">Next Stop</string>
+    <string name="congrats">Congratulations, You\'ve Completed the Tour</string>
+    <string name="restartButtonString">Restart</string>
+
 </resources>
