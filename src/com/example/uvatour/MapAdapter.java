@@ -18,6 +18,7 @@ public class MapAdapter {
         lineOptions.addAll(points);
         lineOptions.width(10);
         lineOptions.color(0x880000ff);
+        mMap.clear();
         mMap.addPolyline(lineOptions);
 	}
 }
