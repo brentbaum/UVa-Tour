@@ -126,6 +126,7 @@ public class MapScreen extends FragmentActivity {
 	private class LocationListener implements OnMyLocationChangeListener {
 		@Override
 		public void onMyLocationChange(Location location) {
+			updateColorBar();
 			CameraUpdate update = CameraUpdateFactory.newLatLngZoom(new LatLng(
 					location.getLatitude(), location.getLongitude()), 18.0f);
 			mMap.animateCamera(update);
