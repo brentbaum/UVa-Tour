@@ -150,7 +150,6 @@ containing a value of this type.
         public static final int map=0x7f05000b;
         public static final int mapButton=0x7f050010;
         public static final int name=0x7f050008;
-        public static final int next_stop=0x7f050012;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
         public static final int pager=0x7f05000c;
@@ -168,9 +167,6 @@ containing a value of this type.
         public static final int historyfragment=0x7f030001;
         public static final int mapscreen=0x7f030002;
         public static final int tourscreen=0x7f030003;
-    }
-    public static final class menu {
-        public static final int mapscreenmenu=0x7f090000;
     }
     public static final class raw {
         public static final int wahoowa=0x7f040000;

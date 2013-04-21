@@ -17,8 +17,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
 
 import com.example.uvatour.net.DirectionProvider;
 import com.google.android.gms.maps.CameraUpdate;
@@ -98,30 +97,16 @@ public class MapScreen extends FragmentActivity {
 		viewPager.setAdapter(historyFragmentPagerAdapter);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.mapscreenmenu, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item){
-		// handle item selection
-		switch(item.getItemId()) {
-		case R.id.next_stop:
-			if (currentStop < (tours.size()-1)) {
-				currentStop++;
-				provider.drawNext(latLng, tours.get(currentStop));
-			}
-			else {
-				Context context = this;
-				Intent intent = new Intent(context, CongratsScreen.class);
-				startActivity(intent);
-			}
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
+	// called when the Next Tour button is clicked
+	public void toNextTour (View view) {
+		if (currentStop < (tours.size()-1)) {
+			currentStop++;
+			provider.drawNext(latLng, tours.get(currentStop));
+		}
+		else {
+			Context context = this;
+			Intent intent = new Intent(context, CongratsScreen.class);
+			startActivity(intent);
 		}
 	}
 
